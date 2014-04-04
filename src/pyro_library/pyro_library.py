@@ -7,7 +7,7 @@ import requests
 
 from robot.libraries.BuiltIn import BuiltIn
 from robot.libraries.OperatingSystem import OperatingSystem
-from pyro_library.sauce_rest import *
+from sauce_rest import *
 
 # envname_pyrobot_browser = 'PYROBOT_BROWSER'
 # envname_pyrobot_default_browser = "PYROBOT_DEFAULT_BROWSER"
