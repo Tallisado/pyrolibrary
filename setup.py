@@ -19,4 +19,4 @@ Robot Framework Selenium2Library wrapper that integrates both Sauce and Sencha c
       install_requires=[
           "robotframework-selenium2library",
       ],
-      )
+)
