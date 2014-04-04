@@ -14,7 +14,7 @@ Robot Framework Selenium2Library wrapper that integrates both Sauce and Sencha c
       author_email='talliskane@gmail.com',
       url='https://github.com/Tallisado/pyrofactory',
       license='',
-      packages=['PyroLibrary'],
+      packages=['pyro_library'],
       package_dir={'pyro_library': 'src/pyro_library'},
       install_requires=[
           "robotframework-selenium2library",
