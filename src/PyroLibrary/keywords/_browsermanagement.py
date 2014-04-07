@@ -35,6 +35,7 @@ class _BrowserManagementKeywords(KeywordGroup):
         self._seleniumlib = BuiltIn().get_library_instance('Selenium2Library')
         self._remoteBrowser = os.environ.get("PYBROWSER", "0") == "0"
         self._job_id = 0
+        self._sauce_rest = SauceRestWrapper()
         
     def open_browser_login_sencha(self, user_name, password, element_on_next_page, determined_browser=os.environ.get("PYBROWSER", 'firefox')):
         print '(open_browser_login_sencha)'
@@ -47,8 +48,8 @@ class _BrowserManagementKeywords(KeywordGroup):
             
         if os.environ.get('SAUCE_API_KEY') and os.environ.get('SAUCE_USERNAME') and self._remoteBrowser:
             print "execute sauce rest to update"
-            wrapper = Wrapper(self._seleniumlib, os.environ.get('SAUCE_USERNAME'), os.environ.get('SAUCE_API_KEY'), sys.argv[2])
-            wrapper.dump_session_id()
+            self._sauce_rest.establish(self._seleniumlib._current_browser().session_id, os.environ.get('SAUCE_USERNAME'), os.environ.get('SAUCE_API_KEY'), sys.argv[2])
+            self._sauce_rest.dump_session_id()
             #ondemand_string = "SauceOnDemandSessionID=%s job-name=%s" % (self._job_id, BuiltIn().get_variable_value("${SUITE_NAME}"))
             #print 'setting ONDEMAND_PYRO to : %s' % ondemand_string
             OperatingSystem().set_environment_variable("ONDEMAND_PYRO", "1111")    

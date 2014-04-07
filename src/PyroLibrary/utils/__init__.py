@@ -1,13 +1,13 @@
 import os
 from fnmatch import fnmatch
-from saucerest import SauceRest
+from saucerest import SauceRestWrapper
 
 __all__ = [
     "get_child_packages_in",
     "get_module_names_under",
     "import_modules_under",
     "escape_xpath_value",
-    "SauceRest"
+    "SauceRestWrapper"
 ]
 
 # Public
