@@ -52,8 +52,8 @@ class _BrowserManagementKeywords(KeywordGroup):
             self._sauce_rest.dump_session_id()
             #ondemand_string = "SauceOnDemandSessionID=%s job-name=%s" % (self._job_id, BuiltIn().get_variable_value("${SUITE_NAME}"))
             #print 'setting ONDEMAND_PYRO to : %s' % ondemand_string
-            OperatingSystem().set_environment_variable("ONDEMAND_PYRO", "1111")    
-            os.environ['ONDEMAND_PYRO'] = ondemand_string
+            #OperatingSystem().set_environment_variable("ONDEMAND_PYRO", "1111")    
+            #os.environ['ONDEMAND_PYRO'] = ondemand_string
                         
         self._seleniumlib.maximize_browser_window()
         self._seleniumlib.set_selenium_speed(1)
