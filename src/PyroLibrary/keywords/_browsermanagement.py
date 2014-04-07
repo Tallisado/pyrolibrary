@@ -58,7 +58,7 @@ class _BrowserManagementKeywords(KeywordGroup):
         self._seleniumlib.set_selenium_speed(1)
         self._seleniumlib.wait_until_element_is_visible('loginnameid-inputEl', timeout=5)
         self._seleniumlib.wait_until_element_is_visible('loginpasswordid-inputEl', timeout=5)
-        self._seleniumlib.input_text('loginnameid-inputEl', username)
+        self._seleniumlib.input_text('loginnameid-inputEl', user_name)
         self._seleniumlib.input_text('loginpasswordid-inputEl', password)
         self._seleniumlib.wait_until_element_is_visible('loginbuttonid-btnIconEl', timeout=5)
         self._seleniumlib.click_element('id=loginbuttonid-btnIconEl')
