@@ -10,7 +10,6 @@ class SauceRestWrapper:
         
     def establish(self, job_id, sauce_user, sauce_key, job_name):
         print '(Wrapper) user:%s key:%s job:%s session:%s' % (sauce_user, sauce_key, job_name, job_id)
-        self.__dict__['sel2lib'] = sel2lib
         self.job_id = job_id
         self.username = sauce_user
         self.access_key = sauce_key
