@@ -1,4 +1,4 @@
-from PyroLibrary.utils import SauceRest
+from PyroLibrary.utils import SauceRestWrapper
 from keywordgroup import KeywordGroup
 import os
 import sys
