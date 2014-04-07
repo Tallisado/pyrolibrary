@@ -11,7 +11,7 @@ class PyroLibrary(
 ):
 
     def __init__(self):
-        for base in Selenium2Library.__bases__:
+        for base in PyroLibrary.__bases__:
             base.__init__(self)
         # self.set_selenium_timeout(timeout)
         # self.set_selenium_implicit_wait(implicit_wait)
