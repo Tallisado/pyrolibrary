@@ -36,9 +36,9 @@ class _BrowserManagementKeywords(KeywordGroup):
         self._remoteBrowser = os.environ.get("PYBROWSER", "0") == "0"
         self._job_id = 0
         self._sauce_rest = SauceRestWrapper()
-        
-    def open_browser_login_sencha(self, user_name, password, element_on_next_page, determined_browser=os.environ.get("PYBROWSER", 'firefox')):
-        print '(open_browser_login_sencha)'
+       
+    def open_pyro_browser(self, selenium_speed=1):
+        print '(open_pyro_browser)'
         #self._seleniumlib = BuiltIn().get_library_instance('Selenium2Library')
         if self._remoteBrowser: #sauce            
             self._seleniumlib.open_browser(os.environ['BASE_URL'], browser=determined_browser, remote_url=os.environ["PYROBOT_REMOTE_URL"], desired_capabilities=os.environ["PYROBOT_CAPS"])       
@@ -56,7 +56,10 @@ class _BrowserManagementKeywords(KeywordGroup):
             #os.environ['ONDEMAND_PYRO'] = ondemand_string
                         
         self._seleniumlib.maximize_browser_window()
-        self._seleniumlib.set_selenium_speed(1)
+        self._seleniumlib.set_selenium_speed(selenium_speed) 
+        
+    def sencha_login(self, user_name, password, element_on_next_page, determined_browser=os.environ.get("PYBROWSER", 'firefox')):
+        print '(login_sencha)'
         self._seleniumlib.wait_until_element_is_visible('loginnameid-inputEl', timeout=5)
         self._seleniumlib.wait_until_element_is_visible('loginpasswordid-inputEl', timeout=5)
         self._seleniumlib.input_text('loginnameid-inputEl', user_name)
@@ -98,3 +101,9 @@ class _BrowserManagementKeywords(KeywordGroup):
         self._seleniumlib.close_browser
         self._seleniumlib.close_all_browsers
         print 'CLOSE BROWSER TIME!!'
+    
+    #def sencha_drag_and_drop(self, locator_type, ele_source, ele_dest):
+    # sencha_drag_and_drop(id='abc', id='def')
+    def sencha_drag_and_drop(self, ele_source, ele_dest):
+        self._seleniumlib.drag_and_drop(ele_source, ele_dest)
+    
