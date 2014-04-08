@@ -101,9 +101,57 @@ class _BrowserManagementKeywords(KeywordGroup):
         self._seleniumlib.close_browser
         self._seleniumlib.close_all_browsers
         print 'CLOSE BROWSER TIME!!'
+
+    def selenium_drag_and_drop(self, locator_type, ele_source, ele_dest):
+        self._seleniumlib.drag_and_drop('%s=%s' % (locator_type,ele_source), '%s=%s' % (locator_type,ele_dest))
+
+    def selenium_check(self, locator_type, element_locator):
+        self._seleniumlib.select_checkbox('%s=%s' % (locator_type,element_locator))
+  
+    def selenium_uncheck(self, locator_type, element_locator):
+        self._seleniumlib.unselect_checkbox('%s=%s' % (locator_type,element_locator))
+       
+    def selenium_wait_for_element_present(self, locator_type, element_locator):
+        self._seleniumlib.wait_until_page_contains_element('%s=%s' % (locator_type,element_locator))
     
-    #def sencha_drag_and_drop(self, locator_type, ele_source, ele_dest):
-    # sencha_drag_and_drop(id='abc', id='def')
-    def sencha_drag_and_drop(self, ele_source, ele_dest):
-        self._seleniumlib.drag_and_drop(ele_source, ele_dest)
+    def selenium_verify_text_from_element(self, locator_type, element_locator, text):
+        self._seleniumlib.element_text_should_be('%s=%s' % (locator_type,element_locator), text)
     
+    def selenium_reload(self):
+        self._seleniumlib.reload_page()
+        
+    def selenium_type(self, locator_type, element_locator, text):
+        self._seleniumlib.input_text('%s=%s' % (locator_type,element_locator), text)
+    
+    def selenium_clear(self, locator_type, element_locator, text=""):
+        self.selenium_type('%s=%s' % (locator_type,element_locator), text)
+        
+    def selenium_verify_attribute_from_element(self, locator_type, element_locator, element_class_locator, text):
+        attr_value = self._seleniumlib.input_text('%s=%s@%s' % (locator_type, element_locator, element_class_locator))
+        BuiltIn().should_contain(text, attr_value)
+    
+    def selenium_click(self, locator_type, element_locator, wait_before_click=5):
+        BuiltIn().sleep(wait_before_click)
+        self._seleniumlib.click_element('%s=%s' % (locator_type,element_locator))
+	
+    def selenium_click_text_from_combobox(self, locator_type, element_locator, text):
+        self.selenium_wait_for_element_present(locator_type, element_locator)
+        self.selenium_click(self, locator_type, element_locator)
+        self.selenium_click(self, 'xpath', "//li[contains(@class, 'x-boundlist-item') and contains(text(),'%s')]" % text) 
+    
+    def selenium_populate_combo_and_click_text(self, locator_type, element_locator, text, wait_before_click=5):
+        self.selenium_wait_for_element_present(locator_type, element_locator)
+        self.selenium_click(self, locator_type, element_locator):
+        self.selenium_click(self, 'xpath', "//div[contains(concat(' ', @class, ' '), 'x-trigger-index-0 x-form-trigger x-form-arrow-trigger x-form-trigger-first')]")
+        BuiltIn().sleep(wait_before_click)
+        self.selenium_click(self, 'xpath', "//li[contains(text(), '%s')" % text)
+
+	def selenium_double_click(self, locator_type, element_locator):
+        self._seleniumlib.double_click_element('%s=%s' % (locator_type,element_locator))
+    
+    def selenium_element_should_not_be_visible(self, locator_type, element_locator):
+        self._seleniumlib.element_should_not_be_visible('%s=%s' % (locator_type,element_locator))
+       
+    def selenium_click_by_script(self, element_locator):
+        self._seleniumlib.execute_javascript("window.document.getElementById('%s').click();" % element_locator)
+	
