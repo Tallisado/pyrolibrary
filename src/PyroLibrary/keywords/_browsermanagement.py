@@ -37,7 +37,7 @@ class _BrowserManagementKeywords(KeywordGroup):
         self._job_id = 0
         self._sauce_rest = SauceRestWrapper()
        
-    def open_pyro_browser(self, selenium_speed=1):
+    def open_pyro_browser(self, determined_browser=os.environ.get("PYBROWSER", 'firefox'), selenium_speed=1):
         print '(open_pyro_browser)'
         #self._seleniumlib = BuiltIn().get_library_instance('Selenium2Library')
         if self._remoteBrowser: #sauce            
@@ -58,7 +58,7 @@ class _BrowserManagementKeywords(KeywordGroup):
         self._seleniumlib.maximize_browser_window()
         self._seleniumlib.set_selenium_speed(selenium_speed) 
         
-    def sencha_login(self, user_name, password, element_on_next_page, determined_browser=os.environ.get("PYBROWSER", 'firefox')):
+    def sencha_login(self, user_name, password, element_on_next_page):
         print '(login_sencha)'
         self._seleniumlib.wait_until_element_is_visible('loginnameid-inputEl', timeout=5)
         self._seleniumlib.wait_until_element_is_visible('loginpasswordid-inputEl', timeout=5)
