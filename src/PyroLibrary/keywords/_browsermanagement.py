@@ -146,12 +146,12 @@ class _BrowserManagementKeywords(KeywordGroup):
         BuiltIn().sleep(wait_before_click)
         self.selenium_click(self, 'xpath', "//li[contains(text(), '%s')" % text)
 
-	def selenium_double_click(self, locator_type, element_locator):
-        self._seleniumlib.double_click_element('%s=%s' % (locator_type,element_locator))
+    def selenium_double_click(self, locator_type, element_locator):
+        self._seleniumlib.double_click_element('%s=%s' % (locator_type, element_locator))
     
     def selenium_element_should_not_be_visible(self, locator_type, element_locator):
-        self._seleniumlib.element_should_not_be_visible('%s=%s' % (locator_type,element_locator))
-       
+        self._seleniumlib.element_should_not_be_visible('%s=%s' % (locator_type, element_locator))
+        
     def selenium_click_by_script(self, element_locator):
         self._seleniumlib.execute_javascript("window.document.getElementById('%s').click();" % element_locator)
-	
+    
