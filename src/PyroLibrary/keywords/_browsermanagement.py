@@ -123,8 +123,8 @@ class _BrowserManagementKeywords(KeywordGroup):
     def selenium_type(self, locator_type, element_locator, text):
         self._seleniumlib.input_text('%s=%s' % (locator_type,element_locator), text)
     
-    def selenium_clear(self, locator_type, element_locator, text=""):
-        self._seleniumlib.input_text('%s=%s' % (locator_type,element_locator), text)
+    def selenium_clear(self, locator_type, element_locator):
+        self._seleniumlib.input_text('%s=%s' % (locator_type,element_locator), '')
         
     def selenium_verify_attribute_from_element(self, locator_type, element_locator, element_class_locator, text):
         attr_value = self._seleniumlib.get_element_attribute('%s=%s@%s' % (locator_type, element_locator, element_class_locator))
@@ -136,15 +136,15 @@ class _BrowserManagementKeywords(KeywordGroup):
 	
     def selenium_click_text_from_combobox(self, locator_type, element_locator, text):
         self.selenium_wait_for_element_present(locator_type, element_locator)
-        self.selenium_click(self, locator_type, element_locator)
-        self.selenium_click(self, 'xpath', "//li[contains(@class, 'x-boundlist-item') and contains(text(),'%s')]" % text) 
+        self.selenium_click(locator_type, element_locator)
+        self.selenium_click('xpath', "//li[contains(@class, 'x-boundlist-item') and contains(text(),'%s')]" % text) 
     
     def selenium_populate_combo_and_click_text(self, locator_type, element_locator, text, wait_before_click=5):
         self.selenium_wait_for_element_present(locator_type, element_locator)
-        self.selenium_click(self, locator_type, element_locator)
-        self.selenium_click(self, 'xpath', "//div[contains(concat(' ', @class, ' '), 'x-trigger-index-0 x-form-trigger x-form-arrow-trigger x-form-trigger-first')]")
+        self.selenium_click(locator_type, element_locator)
+        self.selenium_click('xpath', "//div[contains(concat(' ', @class, ' '), 'x-trigger-index-0 x-form-trigger x-form-arrow-trigger x-form-trigger-first')]")
         BuiltIn().sleep(wait_before_click)
-        self.selenium_click(self, 'xpath', "//li[contains(text(), '%s')" % text)
+        self.selenium_click('xpath', "//li[contains(text(), '%s')" % text)
 
     def selenium_double_click(self, locator_type, element_locator):
         self._seleniumlib.double_click_element('%s=%s' % (locator_type, element_locator))
