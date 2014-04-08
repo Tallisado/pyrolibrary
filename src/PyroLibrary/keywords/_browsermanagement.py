@@ -144,7 +144,7 @@ class _BrowserManagementKeywords(KeywordGroup):
         self.selenium_click(locator_type, element_locator)
         self.selenium_click('xpath', "//div[contains(concat(' ', @class, ' '), 'x-trigger-index-0 x-form-trigger x-form-arrow-trigger x-form-trigger-first')]")
         BuiltIn().sleep(wait_before_click)
-        self.selenium_click('xpath', "//li[contains(text(), '%s')" % text)
+        self.selenium_click('xpath', "//li[contains(text(), '%s')]" % text)
 
     def selenium_double_click(self, locator_type, element_locator):
         self._seleniumlib.double_click_element('%s=%s' % (locator_type, element_locator))
