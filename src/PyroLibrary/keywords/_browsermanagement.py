@@ -127,7 +127,7 @@ class _BrowserManagementKeywords(KeywordGroup):
         self.selenium_type('%s=%s' % (locator_type,element_locator), text)
         
     def selenium_verify_attribute_from_element(self, locator_type, element_locator, element_class_locator, text):
-        attr_value = self._seleniumlib.input_text('%s=%s@%s' % (locator_type, element_locator, element_class_locator))
+        attr_value = self._seleniumlib.get_element_attribute('%s=%s@%s' % (locator_type, element_locator, element_class_locator))
         BuiltIn().should_contain(text, attr_value)
     
     def selenium_click(self, locator_type, element_locator, wait_before_click=5):
