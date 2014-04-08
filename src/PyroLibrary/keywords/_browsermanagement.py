@@ -141,7 +141,7 @@ class _BrowserManagementKeywords(KeywordGroup):
     
     def selenium_populate_combo_and_click_text(self, locator_type, element_locator, text, wait_before_click=5):
         self.selenium_wait_for_element_present(locator_type, element_locator)
-        self.selenium_click(self, locator_type, element_locator):
+        self.selenium_click(self, locator_type, element_locator)
         self.selenium_click(self, 'xpath', "//div[contains(concat(' ', @class, ' '), 'x-trigger-index-0 x-form-trigger x-form-arrow-trigger x-form-trigger-first')]")
         BuiltIn().sleep(wait_before_click)
         self.selenium_click(self, 'xpath', "//li[contains(text(), '%s')" % text)
