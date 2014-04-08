@@ -124,7 +124,7 @@ class _BrowserManagementKeywords(KeywordGroup):
         self._seleniumlib.input_text('%s=%s' % (locator_type,element_locator), text)
     
     def selenium_clear(self, locator_type, element_locator, text=""):
-        self.selenium_type('%s=%s' % (locator_type,element_locator), text)
+        self._seleniumlib.input_text('%s=%s' % (locator_type,element_locator), text)
         
     def selenium_verify_attribute_from_element(self, locator_type, element_locator, element_class_locator, text):
         attr_value = self._seleniumlib.get_element_attribute('%s=%s@%s' % (locator_type, element_locator, element_class_locator))
