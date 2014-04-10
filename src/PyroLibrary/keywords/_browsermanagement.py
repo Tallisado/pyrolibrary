@@ -3,6 +3,8 @@ from keywordgroup import KeywordGroup
 import os
 import sys
 
+#BROWSER='Linux,chrome,33 BASE_URL=http://admin:password@10.10.9.164:81 PAYLOAD=dev/sauce_ui python pyrobot.py
+
 # sauce rest api
 import re
 import requests
@@ -30,16 +32,56 @@ SELENIUM2LIB_BROWSERS = [
 
 
 class _BrowserManagementKeywords(KeywordGroup):
-
-    def __init__(self):
-        self._seleniumlib = BuiltIn().get_library_instance('Selenium2Library')
+    def __init__(self):      
         self._remoteBrowser = os.environ.get("PYBROWSER", "0") == "0"
         self._job_id = 0
         self._sauce_rest = SauceRestWrapper()
        
     def open_pyro_browser(self, determined_browser=os.environ.get("PYBROWSER", 'firefox'), selenium_speed=1):
+        """Opens a browser in the context determined by the suite; such as, Sauce Miltiple, Sauce Single, Sauce Solo, Local Solo and add it to Selenium2Library the browser cache.
+        
+        If the Robot Framework test code is executed through TeamCity using Sauce CI, the browser will be remotely instantiated throgh the Sauce service. Visit the documentation in the intro to see how the username and key are obtained
+        See https://saucelabs.com/login
+        
+        Returns the index of this browser instance which can be used later to
+        switch back to it. Index starts from 1 and is reset back to it when
+        `Close All Browsers` keyword is used. See `Switch Browser` for
+        example.
+
+        Optional alias is an alias for the browser instance and it can be used
+        for switching between browsers (just as index can be used). See `Switch
+        Browser` for more details.
+
+        Possible values for local instance `browser` are as follows:
+
+        | firefox          | FireFox   |
+        | ff               | FireFox   |
+        | internetexplorer | Internet Explorer |
+        | ie               | Internet Explorer |
+        | googlechrome     | Google Chrome |
+        | gc               | Google Chrome |
+        | chrome           | Google Chrome |
+        | opera            | Opera         |
+        | phantomjs        | PhantomJS     |
+        | htmlunit         | HTMLUnit      |
+        | htmlunitwithjs   | HTMLUnit with Javascipt support |
+        | android          | Android       |
+        | iphone           | Iphone        |
+        | safari           | Safari        |
+        
+        Note, that you will encounter strange behavior, if you open
+        multiple Internet Explorer browser instances. That is also why
+        `Switch Browser` only works with one IE browser at most.
+        For more information see:
+        http://selenium-grid.seleniumhq.org/faq.html#i_get_some_strange_errors_when_i_run_multiple_internet_explorer_instances_on_the_same_machine
+
+        Optional 'ff_profile_dir' is the path to the firefox profile dir if you
+        wish to overwrite the default.
+        
+        """
+        
         print '(open_pyro_browser)'
-        #self._seleniumlib = BuiltIn().get_library_instance('Selenium2Library')
+        self._seleniumlib = BuiltIn().get_library_instance('Selenium2Library')
         if self._remoteBrowser: #sauce            
             self._seleniumlib.open_browser(os.environ['BASE_URL'], browser=determined_browser, remote_url=os.environ["PYROBOT_REMOTE_URL"], desired_capabilities=os.environ["PYROBOT_CAPS"])       
             self._job_id = self._seleniumlib._current_browser().session_id
@@ -59,6 +101,9 @@ class _BrowserManagementKeywords(KeywordGroup):
         self._seleniumlib.set_selenium_speed(selenium_speed) 
         
     def sencha_login(self, user_name, password, element_on_next_page):
+        """
+        Using the instantiated browser from `Open Browser`, the page traverses through the login page and waits for the targeted element on the following page.
+        """
         print '(login_sencha)'
         self._seleniumlib.wait_until_element_is_visible('loginnameid-inputEl', timeout=5)
         self._seleniumlib.wait_until_element_is_visible('loginpasswordid-inputEl', timeout=5)
