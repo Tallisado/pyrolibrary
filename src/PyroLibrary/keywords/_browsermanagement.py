@@ -31,8 +31,8 @@ SELENIUM2LIB_BROWSERS = [
 'safari'                ]
 
 
-class _BrowserManagementKeywords(KeywordGroup, no_base=False):
-    def __init__(self):      
+class _BrowserManagementKeywords(KeywordGroup):
+    def __init__(self, no_base=False):      
         self._remoteBrowser = os.environ.get("PYBROWSER", "0") == "0"
         self._job_id = 0
         self._sauce_rest = SauceRestWrapper()
