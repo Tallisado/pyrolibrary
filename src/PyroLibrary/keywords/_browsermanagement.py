@@ -31,11 +31,13 @@ SELENIUM2LIB_BROWSERS = [
 'safari'                ]
 
 
-class _BrowserManagementKeywords(KeywordGroup):
+class _BrowserManagementKeywords(KeywordGroup, no_base=False):
     def __init__(self):      
         self._remoteBrowser = os.environ.get("PYBROWSER", "0") == "0"
         self._job_id = 0
         self._sauce_rest = SauceRestWrapper()
+        if no_base:
+            self._seleniumlib = BuiltIn().get_library_instance('Selenium2Library')
        
     def open_pyro_browser(self, determined_browser=os.environ.get("PYBROWSER", 'firefox'), selenium_speed=1):
         """Opens a browser in the context determined by the suite; such as, Sauce Miltiple, Sauce Single, Sauce Solo, Local Solo and add it to Selenium2Library the browser cache.
@@ -81,7 +83,6 @@ class _BrowserManagementKeywords(KeywordGroup):
         """
         
         print '(open_pyro_browser)'
-        self._seleniumlib = BuiltIn().get_library_instance('Selenium2Library')
         if self._remoteBrowser: #sauce            
             self._seleniumlib.open_browser(os.environ['BASE_URL'], browser=determined_browser, remote_url=os.environ["PYROBOT_REMOTE_URL"], desired_capabilities=os.environ["PYROBOT_CAPS"])       
             self._job_id = self._seleniumlib._current_browser().session_id

@@ -7,7 +7,8 @@ execfile(os.path.join(THIS_DIR, 'version.py'))
 __version__ = VERSION
 
 class PyroLibrary( 
-    _BrowserManagementKeywords
+    _BrowserManagementKeywords,
+    True
 ):
 
     """PyroLibrary is a web testing wrapper for the Selnium2Library library in Robot Framework.
