@@ -79,6 +79,10 @@ class _BrowserManagementKeywords(KeywordGroup):
         Optional 'ff_profile_dir' is the path to the firefox profile dir if you
         wish to overwrite the default.
         
+        Command Line Supercede:
+        IMPLICIT_WAIT (Set Selenium Implicit Wait) [can be set in import]
+        COMMAND_DELAY (Set Selenium Speed) 
+        KEYWORD_TIMEOUT (Set Selenium Timeout) [can be set in import]
         """
         
         print '(open_pyro_browser)'
@@ -96,10 +100,21 @@ class _BrowserManagementKeywords(KeywordGroup):
             #print 'setting ONDEMAND_PYRO to : %s' % ondemand_string
             #OperatingSystem().set_environment_variable("ONDEMAND_PYRO", "1111")    
             #os.environ['ONDEMAND_PYRO'] = ondemand_string
-                        
-        self._seleniumlib.maximize_browser_window()
-        self._seleniumlib.set_selenium_speed(selenium_speed) 
         
+        self._seleniumlib.maximize_browser_window()
+        # Determine timeouts based on commandline
+        # IMPLICIT_WAIT
+        # COMMAND_DELAY
+        # KEYWORD_TIMEOUT
+        if 'IMPLICIT_WAIT' in os.environ:
+            self._seleniumlib.set_selenium_implicit_wait(os.environ.get('IMPLICIT_WAIT')) 
+        if 'COMMAND_DELAY' in os.environ:
+            self._seleniumlib.set_selenium_speed(os.environ.get('COMMAND_DELAY')) 
+        else
+            self._seleniumlib.set_selenium_speed(selenium_speed) 
+        if 'KEYWORD_TIMEOUT' in os.environ:
+            self._seleniumlib.set_selenium_timeout(os.environ.get('KEYWORD_TIMEOUT')) 
+
     def sencha_login(self, user_name, password, element_on_next_page):
         """
         Using the instantiated browser from `Open Browser`, the page traverses through the login page and waits for the targeted element on the following page.
