@@ -110,7 +110,7 @@ class _BrowserManagementKeywords(KeywordGroup):
             self._seleniumlib.set_selenium_implicit_wait(os.environ.get('IMPLICIT_WAIT')) 
         if 'COMMAND_DELAY' in os.environ:
             self._seleniumlib.set_selenium_speed(os.environ.get('COMMAND_DELAY')) 
-        else
+        else:
             self._seleniumlib.set_selenium_speed(selenium_speed) 
         if 'KEYWORD_TIMEOUT' in os.environ:
             self._seleniumlib.set_selenium_timeout(os.environ.get('KEYWORD_TIMEOUT')) 
