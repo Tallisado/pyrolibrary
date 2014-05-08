@@ -115,7 +115,7 @@ class _BrowserManagementKeywords(KeywordGroup):
         if 'KEYWORD_TIMEOUT' in os.environ:
             self._seleniumlib.set_selenium_timeout(os.environ.get('KEYWORD_TIMEOUT')) 
 
-    def sencha_login(self, user_name, password, element_on_next_page, suspend_timeouts=False):
+    def sencha_login(self, user_name, password, element_on_next_page, suspend_timeouts=True):
         """
         Using the instantiated browser from `Open Browser`, the page traverses through the login page and waits for the targeted element on the following page.
         """
@@ -181,7 +181,13 @@ class _BrowserManagementKeywords(KeywordGroup):
     def selenium_verify_text_from_element(self, locator_type, element_locator, text):
         self._seleniumlib.element_text_should_be('%s=%s' % (locator_type,element_locator), text)
     
-    def selenium_reload(self, suspend_after_element_found=None):
+    def selenium_reload(self, suspend_after_element_found='createUser_wiz'):
+        """Refreshes the browser, which is effectively like the user pressed F5.
+        Optional, supply the suspend_after_element_found with an element to find after reloading and apply the following javascript:
+           window.ADTRAN.store.RefreshBaseStore.suspendAll();
+           window.ADTRAN.util.SysPollTask.suspend();
+        Note: Setting this to equal None will disable the javascript and wait for element functionality entirely
+        """        
         self._seleniumlib.reload_page()
         if suspend_after_element_found:
             self._seleniumlib.wait_until_element_is_visible(suspend_after_element_found, error='(selenium_reload) failed because the element was not found after reload')
