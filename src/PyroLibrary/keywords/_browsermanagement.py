@@ -115,7 +115,7 @@ class _BrowserManagementKeywords(KeywordGroup):
         if 'KEYWORD_TIMEOUT' in os.environ:
             self._seleniumlib.set_selenium_timeout(os.environ.get('KEYWORD_TIMEOUT')) 
 
-    def sencha_login(self, user_name, password, element_on_next_page):
+    def sencha_login(self, user_name, password, element_on_next_page, suspend_timeouts=False):
         """
         Using the instantiated browser from `Open Browser`, the page traverses through the login page and waits for the targeted element on the following page.
         """
@@ -127,6 +127,10 @@ class _BrowserManagementKeywords(KeywordGroup):
         self._seleniumlib.wait_until_element_is_visible('loginbuttonid-btnIconEl', timeout=5)
         self._seleniumlib.click_element('id=loginbuttonid-btnIconEl')
         self._seleniumlib.wait_until_element_is_visible('id=%s'% element_on_next_page, timeout=5)
+        if suspend_timeouts:
+            self._seleniumlib.execute_javascript('window.ADTRAN.store.RefreshBaseStore.suspendAll();')
+            self._seleniumlib.execute_javascript('window.ADTRAN.util.SysPollTask.suspend();')
+            print '(login_sencha) javascript suspendAll issued!'
 
     def close_pyro_browser():
         print '(close_pyro_browser)'
@@ -177,9 +181,14 @@ class _BrowserManagementKeywords(KeywordGroup):
     def selenium_verify_text_from_element(self, locator_type, element_locator, text):
         self._seleniumlib.element_text_should_be('%s=%s' % (locator_type,element_locator), text)
     
-    def selenium_reload(self):
+    def selenium_reload(self, suspend_after_element_found=None):
         self._seleniumlib.reload_page()
-        
+        if suspend_after_element_found:
+            self._seleniumlib.wait_until_element_is_visible(suspend_after_element_found, error='(selenium_reload) failed because the element was not found after reload')
+            self._seleniumlib.execute_javascript('window.ADTRAN.store.RefreshBaseStore.suspendAll();')
+            self._seleniumlib.execute_javascript('window.ADTRAN.util.SysPollTask.suspend();')
+            print '(selenium_reload) javascript suspendAll issued!'
+            
     def selenium_type(self, locator_type, element_locator, text):
         self._seleniumlib.input_text('%s=%s' % (locator_type,element_locator), text)
     
@@ -193,7 +202,7 @@ class _BrowserManagementKeywords(KeywordGroup):
     def selenium_click(self, locator_type, element_locator, wait_before_click=5):
         BuiltIn().sleep(wait_before_click)
         self._seleniumlib.click_element('%s=%s' % (locator_type,element_locator))
-	
+
     def selenium_click_text_from_combobox(self, locator_type, element_locator, text):
         self.selenium_wait_for_element_present(locator_type, element_locator)
         self.selenium_click(locator_type, element_locator)
