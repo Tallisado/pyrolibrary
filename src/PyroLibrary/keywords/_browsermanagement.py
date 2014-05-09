@@ -127,10 +127,10 @@ class _BrowserManagementKeywords(KeywordGroup):
         self._seleniumlib.wait_until_element_is_visible('loginbuttonid-btnIconEl', timeout=5)
         self._seleniumlib.click_element('id=loginbuttonid-btnIconEl')
         self._seleniumlib.wait_until_element_is_visible('id=%s'% element_on_next_page, timeout=5)
-        if suspend_timeouts == True:
-            print '(login_sencha) javascript issuing suspendAll!'
-            self._seleniumlib.execute_javascript('window.ADTRAN.store.RefreshBaseStore.suspendAll();')
-            self._seleniumlib.execute_javascript('window.ADTRAN.util.SysPollTask.suspend();')
+        # if suspend_timeouts == True:
+            # print '(login_sencha) javascript issuing suspendAll!'
+            # self._seleniumlib.execute_javascript('window.ADTRAN.store.RefreshBaseStore.suspendAll();')
+            # self._seleniumlib.execute_javascript('window.ADTRAN.util.SysPollTask.suspend();')
             
 
     def close_pyro_browser():
