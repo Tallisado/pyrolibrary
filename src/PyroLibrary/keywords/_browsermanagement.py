@@ -8,6 +8,7 @@ import sys
 # sauce rest api
 import re
 import requests
+import time
 
 from robot.libraries.BuiltIn import BuiltIn
 from robot.libraries.OperatingSystem import OperatingSystem
@@ -127,6 +128,7 @@ class _BrowserManagementKeywords(KeywordGroup):
         self._seleniumlib.input_text('loginpasswordid-inputEl', password)
         self._seleniumlib.wait_until_element_is_visible('loginbuttonid-btnIconEl', timeout=5)
         self._seleniumlib.click_element('id=loginbuttonid-btnIconEl')
+        time.sleep(5)
         self._seleniumlib.wait_until_element_is_visible('id=%s'% element_on_next_page, timeout=5)
         # if suspend_timeouts == True:
             # print '(login_sencha) javascript issuing suspendAll!'
