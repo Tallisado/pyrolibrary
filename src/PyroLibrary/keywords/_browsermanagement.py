@@ -176,7 +176,10 @@ class _BrowserManagementKeywords(KeywordGroup):
   
     def selenium_uncheck(self, locator_type, element_locator):
         self._seleniumlib.unselect_checkbox('%s=%s' % (locator_type,element_locator))
-       
+    
+    def selenium_wait_until_element_present(self, locator_type, element_locator, _timeout=5):
+        self._seleniumlib.wait_until_element_is_visible('id=%s'% element_on_next_page, timeout=_timeout)
+    
     def selenium_wait_for_element_present(self, locator_type, element_locator):
         self._seleniumlib.wait_until_page_contains_element('%s=%s' % (locator_type,element_locator))
     
