@@ -111,6 +111,7 @@ class _BrowserManagementKeywords(KeywordGroup):
         if 'COMMAND_DELAY' in os.environ:
             self._seleniumlib.set_selenium_speed(os.environ.get('COMMAND_DELAY')) 
         else:
+            print '(open_pyro_browser) setting selenium speed %s' % selenium_speed
             self._seleniumlib.set_selenium_speed(selenium_speed) 
         if 'KEYWORD_TIMEOUT' in os.environ:
             self._seleniumlib.set_selenium_timeout(os.environ.get('KEYWORD_TIMEOUT')) 
@@ -126,11 +127,11 @@ class _BrowserManagementKeywords(KeywordGroup):
         self._seleniumlib.input_text('loginpasswordid-inputEl', password)
         self._seleniumlib.wait_until_element_is_visible('loginbuttonid-btnIconEl', timeout=5)
         self._seleniumlib.click_element('id=loginbuttonid-btnIconEl')
-        #self._seleniumlib.wait_until_element_is_visible('id=%s'% element_on_next_page, timeout=5)
-        # if suspend_timeouts == True:
-            # print '(login_sencha) javascript issuing suspendAll!'
-            # self._seleniumlib.execute_javascript('window.ADTRAN.store.RefreshBaseStore.suspendAll();')
-            # self._seleniumlib.execute_javascript('window.ADTRAN.util.SysPollTask.suspend();')
+        self._seleniumlib.wait_until_element_is_visible('id=%s'% element_on_next_page, timeout=5)
+        if suspend_timeouts == True:
+            print '(login_sencha) javascript issuing suspendAll!'
+            self._seleniumlib.execute_javascript('window.ADTRAN.store.RefreshBaseStore.suspendAll();')
+            self._seleniumlib.execute_javascript('window.ADTRAN.util.SysPollTask.suspend();')
             
 
     def close_pyro_browser():
