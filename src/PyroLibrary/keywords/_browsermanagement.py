@@ -117,8 +117,8 @@ class _BrowserManagementKeywords(KeywordGroup):
         if 'KEYWORD_TIMEOUT' in os.environ:
             self._seleniumlib.set_selenium_timeout(os.environ.get('KEYWORD_TIMEOUT')) 
 
-    #def sencha_login(self, user_name, password, element_on_next_page, suspend_timeouts=True):
-    def sencha_login(self, user_name, password, element_on_next_page):
+    def sencha_login(self, user_name, password, element_on_next_page, suspend_timeouts=True):
+    #def sencha_login(self, user_name, password, element_on_next_page):
         """
         Using the instantiated browser from `Open Browser`, the page traverses through the login page and waits for the targeted element on the following page.
         """
@@ -129,11 +129,11 @@ class _BrowserManagementKeywords(KeywordGroup):
         self._seleniumlib.input_text('loginpasswordid-inputEl', password)
         self._seleniumlib.wait_until_element_is_visible('loginbuttonid-btnIconEl', timeout=5)
         self._seleniumlib.click_element('id=loginbuttonid-btnIconEl')
-        #self._seleniumlib.wait_until_element_is_visible('id=%s'% element_on_next_page, timeout=5)
-        # if suspend_timeouts == True:
-            # print '(login_sencha) javascript issuing suspendAll!'
-            # self._seleniumlib.execute_javascript('window.ADTRAN.store.RefreshBaseStore.suspendAll();')
-            # self._seleniumlib.execute_javascript('window.ADTRAN.util.SysPollTask.suspend();')
+        self._seleniumlib.wait_until_element_is_visible('id=%s'% element_on_next_page, timeout=5)
+        if suspend_timeouts == True:
+            print '(login_sencha) javascript issuing suspendAll!'
+            self._seleniumlib.execute_javascript('window.ADTRAN.store.RefreshBaseStore.suspendAll();')
+            self._seleniumlib.execute_javascript('window.ADTRAN.util.SysPollTask.suspend();')
             
 
     def close_pyro_browser():
@@ -196,7 +196,7 @@ class _BrowserManagementKeywords(KeywordGroup):
         Note: Setting this to equal None will disable the javascript and wait for element functionality entirely
         """        
         self._seleniumlib.reload_page()
-        if suspend_after_element_found:
+        if suspend_after_element_found != None:
             self._seleniumlib.wait_until_element_is_visible(suspend_after_element_found, error='(selenium_reload) failed because the element was not found after reload')
             self._seleniumlib.execute_javascript('window.ADTRAN.store.RefreshBaseStore.suspendAll();')
             self._seleniumlib.execute_javascript('window.ADTRAN.util.SysPollTask.suspend();')
