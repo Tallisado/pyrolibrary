@@ -39,7 +39,7 @@ class _BrowserManagementKeywords(KeywordGroup):
         self._sauce_rest = SauceRestWrapper()
         self._seleniumlib = BuiltIn().get_library_instance('Selenium2Library')
        
-    def open_pyro_browser(self, determined_browser=os.environ.get("PYBROWSER", 'firefox'), selenium_speed=1):
+    def open_pyro_browser(self, determined_browser=os.environ.get("PYBROWSER", 'firefox'), selenium_speed=0.5):
         """Opens a browser in the context determined by the suite; such as, Sauce Miltiple, Sauce Single, Sauce Solo, Local Solo and add it to Selenium2Library the browser cache.
         
         If the Robot Framework test code is executed through TeamCity using Sauce CI, the browser will be remotely instantiated throgh the Sauce service. Visit the documentation in the intro to see how the username and key are obtained
@@ -117,7 +117,8 @@ class _BrowserManagementKeywords(KeywordGroup):
         if 'KEYWORD_TIMEOUT' in os.environ:
             self._seleniumlib.set_selenium_timeout(os.environ.get('KEYWORD_TIMEOUT')) 
 
-    def sencha_login(self, user_name, password, element_on_next_page, suspend_timeouts=True):
+    #def sencha_login(self, user_name, password, element_on_next_page, suspend_timeouts=True):
+    def sencha_login(self, user_name, password, element_on_next_page):
         """
         Using the instantiated browser from `Open Browser`, the page traverses through the login page and waits for the targeted element on the following page.
         """
@@ -128,7 +129,6 @@ class _BrowserManagementKeywords(KeywordGroup):
         self._seleniumlib.input_text('loginpasswordid-inputEl', password)
         self._seleniumlib.wait_until_element_is_visible('loginbuttonid-btnIconEl', timeout=5)
         self._seleniumlib.click_element('id=loginbuttonid-btnIconEl')
-        #time.sleep(5)
         #self._seleniumlib.wait_until_element_is_visible('id=%s'% element_on_next_page, timeout=5)
         # if suspend_timeouts == True:
             # print '(login_sencha) javascript issuing suspendAll!'
