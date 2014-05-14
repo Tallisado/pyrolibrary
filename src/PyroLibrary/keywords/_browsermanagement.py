@@ -195,12 +195,13 @@ class _BrowserManagementKeywords(KeywordGroup):
            window.ADTRAN.util.SysPollTask.suspend();
         Note: Setting this to equal None will disable the javascript and wait for element functionality entirely
         """        
+        print '(selenium_reload) suspend = %s' % suspend_after_element_found
         self._seleniumlib.reload_page()
         if suspend_after_element_found != None:
+            print '(selenium_reload) javascript suspendAll issued!'
             self._seleniumlib.wait_until_element_is_visible(suspend_after_element_found, error='(selenium_reload) failed because the element was not found after reload')
             self._seleniumlib.execute_javascript('window.ADTRAN.store.RefreshBaseStore.suspendAll();')
             self._seleniumlib.execute_javascript('window.ADTRAN.util.SysPollTask.suspend();')
-            print '(selenium_reload) javascript suspendAll issued!'
             
     def selenium_type(self, locator_type, element_locator, text):
         self._seleniumlib.input_text('%s=%s' % (locator_type,element_locator), text)
