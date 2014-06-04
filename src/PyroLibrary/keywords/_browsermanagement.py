@@ -173,6 +173,11 @@ class _BrowserManagementKeywords(KeywordGroup):
     def selenium_drag_and_drop(self, locator_type, ele_source, ele_dest):
         self._seleniumlib.drag_and_drop('%s=%s' % (locator_type,ele_source), '%s=%s' % (locator_type,ele_dest))
 
+    def selenium_drag_and_drop_actions(self, locator_type, ele_source, ele_dest):
+        self._seleniumlib.mouse_down('%s=%s' % (locator_type,ele_source))
+        self._seleniumlib.mouse_over('%s=%s' % (locator_type,ele_dest))
+        self._seleniumlib.mouse_up('%s=%s' % (locator_type,ele_dest))
+
     def selenium_check(self, locator_type, element_locator):
         self._seleniumlib.select_checkbox('%s=%s' % (locator_type,element_locator))
   
@@ -213,7 +218,7 @@ class _BrowserManagementKeywords(KeywordGroup):
         attr_value = self._seleniumlib.get_element_attribute('%s=%s@%s' % (locator_type, element_locator, element_class_locator))
         BuiltIn().should_contain(text, attr_value)
     
-    def selenium_click(self, locator_type, element_locator, wait_before_click=5):
+    def selenium_click(self, locator_type, element_locator, wait_before_click=1):
         BuiltIn().sleep(wait_before_click)
         self._seleniumlib.click_element('%s=%s' % (locator_type,element_locator))
 
