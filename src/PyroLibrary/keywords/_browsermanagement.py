@@ -218,7 +218,7 @@ class _BrowserManagementKeywords(KeywordGroup):
         attr_value = self._seleniumlib.get_element_attribute('%s=%s@%s' % (locator_type, element_locator, element_class_locator))
         BuiltIn().should_contain(text, attr_value)
     
-    def selenium_click(self, locator_type, element_locator, wait_before_click=1):
+    def selenium_click(self, locator_type, element_locator, wait_before_click=5):
         BuiltIn().sleep(wait_before_click)
         self._seleniumlib.click_element('%s=%s' % (locator_type,element_locator))
 
