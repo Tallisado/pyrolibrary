@@ -231,7 +231,7 @@ class _BrowserManagementKeywords(KeywordGroup):
         self.selenium_wait_for_element_present(locator_type, element_locator)
         self.selenium_click(locator_type, element_locator)
         #self.selenium_click('xpath', "//div[contains(concat(' ', @class, ' '), 'x-trigger-index-0 x-form-trigger x-form-arrow-trigger x-form-trigger-first')]")
-        self.selenium_click('xpath', "//input[id='%s']/../../td[2]" % element_locator)
+        self.selenium_click('xpath', "//input[@id='%s']/../../td[2]" % element_locator)
         BuiltIn().sleep(wait_before_click)
         #self.selenium_click('xpath', "//li[contains(text(), '%s')]" % text)
         self.selenium_click('xpath', "//div[contains(@class, 'x-boundlist') and not(contains(@style, 'display: none;'))]/div/ul/li[contains(text(), '%s')]" % text) 
