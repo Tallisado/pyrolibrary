@@ -224,9 +224,9 @@ class _BrowserManagementKeywords(KeywordGroup):
     def selenium_click_text_from_combobox(self, locator_type, element_locator, text):
         self.selenium_wait_for_element_present(locator_type, element_locator)
         self._seleniumlib.click_element('%s=%s' % (locator_type,element_locator))
-        if (!self._seleniumlib.page_should_contain_element("xpath=//div[contains(@class, 'x-boundlist') and not(contains(@style, 'display: none;'))]")) {
+        if (not (self._seleniumlib.page_should_contain_element("xpath=//div[contains(@class, 'x-boundlist') and not(contains(@style, 'display: none;'))]"))):
             self.selenium_type(locator_type, element_locator, text)
-        }
+      
         self.selenium_wait_for_element_present('xpath', "//div[contains(@class, 'x-boundlist') and not(contains(@style, 'display: none;'))]/div")
         self.selenium_click('xpath', "//div[contains(@class, 'x-boundlist') and not(contains(@style, 'display: none;'))]/div/ul/li[contains(text(), '%s')]" % text) 
 
