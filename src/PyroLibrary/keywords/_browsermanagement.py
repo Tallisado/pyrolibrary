@@ -216,7 +216,6 @@ class _BrowserManagementKeywords(KeywordGroup):
     def selenium_verify_attribute_from_element(self, locator_type, element_locator, element_class_locator, text):
         attr_value = self._seleniumlib.get_element_attribute('%s=%s@%s' % (locator_type, element_locator, element_class_locator))
         BuiltIn().should_contain(text, attr_value)
-        
     
     def selenium_click(self, locator_type, element_locator, wait_before_click=5):
         BuiltIn().sleep(wait_before_click)
@@ -225,9 +224,6 @@ class _BrowserManagementKeywords(KeywordGroup):
     def selenium_click_text_from_combobox(self, locator_type, element_locator, text):
         self.selenium_wait_for_element_present(locator_type, element_locator)
         self._seleniumlib.click_element('%s=%s' % (locator_type,element_locator))
-        if (BuiltIn().run_keyword_and_return_status(self._seleniumlib.page_should_contain("xpath=//div[contains(@class, 'x-boundlist') and not(contains(@style, 'display: none;'))]"))):
-            self.selenium_type(locator_type, element_locator, text)
-      
         self.selenium_wait_for_element_present('xpath', "//div[contains(@class, 'x-boundlist') and not(contains(@style, 'display: none;'))]/div")
         self.selenium_click('xpath', "//div[contains(@class, 'x-boundlist') and not(contains(@style, 'display: none;'))]/div/ul/li[contains(text(), '%s')]" % text) 
 
